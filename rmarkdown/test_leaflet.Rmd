@@ -7,17 +7,28 @@ output: html_document
 
 ```{r echo=FALSE, eval=TRUE, message=FALSE}
 library(leaflet)
-punkter <- data.frame(
-  lat = c(59.229397, 59.346388),
-  lng = c(18.132372, 18.024069),
-  lbl = c("Home, sweet home!", "My office is here"))
-
+kiikon <- makeIcon("http://actifcare.eu/wp-content/uploads/2014/01/KI.png",
+                   iconWidth = 60,
+                   iconHeight = 40)
+hemikon <- makeIcon("http://brfkungen7.se/onewebstatic/7c169c79e8-logo_7Kungen_JPG_opt.jpg",
+                    iconWidth = 60,
+                    iconHeight = 40)
+bajenikon <- makeIcon("http://www.hammarbyungdom.se/images/578/12652/164818.PNG",
+                      iconWidth = 40,
+                      iconHeight = 40)
 karta <-
-  leaflet(punkter) %>%
-  addTiles() %>%
-  addMarkers(popup = punkter$lbl)
-
-karta
+  leaflet() %>%
+  addTiles()%>%
+  addMarkers(lat = 59.229397, lng = 18.132372,
+             popup = "Home, sweet home",
+             icon = hemikon) %>%
+  addMarkers(lat = 59.346388, lng = 18.024069,
+             popup = "Here is my office",
+             icon = kiikon) %>%
+  addMarkers(59.291152, lng = 18.084157,
+             popup = "Forza Bajen, allez allez allez",
+             icon = bajenikon)
+ karta
 ```
 
 Hi! This is a simple map example created with the R Leaflet package.
