@@ -12,7 +12,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r echo=FALSE, eval=TRUE}
 library(leaflet)
-karta <- leaflet() %>% addTiles()
+karta <- leaflet() %>%
+  addTiles() %>%
+  addMarkers(lat = 59.229397,
+             lng = 18.132372,
+             popup = "Home, sweet home!")
 karta
 ```
-
