@@ -31,4 +31,4 @@ karta <-
  karta
 ```
 
-Hi! This is a simple map example created with the R Leaflet package.
+Hi! This is a simple interactive map created with the R Leaflet package.
