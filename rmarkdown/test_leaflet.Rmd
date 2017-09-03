@@ -1,16 +1,24 @@
 ---
-title: "Testing the R Leaflet package"
+title: "Oh look! A Map App!"
+author: "Agne"
+date: "`r format(Sys.time(), '%-d %B %Y')`"
 output: html_document
 ---
 
-```{r echo=FALSE, eval=TRUE}
+```{r echo=FALSE, eval=TRUE, message=FALSE}
 library(leaflet)
-karta <- leaflet() %>%
+punkter <- data.frame(
+  lat = c(59.229397, 59.346388),
+  lng = c(18.132372, 18.024069),
+  lbl = c("Home, sweet home!", "My office is here"))
+
+karta <-
+  leaflet(punkter) %>%
   addTiles() %>%
-  addMarkers(lat = 59.229397,
-             lng = 18.132372,
-             popup = "Home, sweet home!")
+  addMarkers(popup = punkter$lbl)
+
 karta
 ```
 
-Hi! Today is **`r format(Sys.time(), "%-d %B %Y")`** and this is where I live.
+Hi! This is a simple map example created with the R Leaflet package.
+
