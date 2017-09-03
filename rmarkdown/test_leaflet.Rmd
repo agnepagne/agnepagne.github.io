@@ -21,4 +21,3 @@ karta
 ```
 
 Hi! This is a simple map example created with the R Leaflet package.
-
