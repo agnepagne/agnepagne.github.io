@@ -1,14 +1,7 @@
 ---
-title: "Untitled"
+title: "Testing the R Leaflet package"
 output: html_document
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## Testing the leaflet library
-
 
 ```{r echo=FALSE, eval=TRUE}
 library(leaflet)
@@ -19,3 +12,5 @@ karta <- leaflet() %>%
              popup = "Home, sweet home!")
 karta
 ```
+
+Hi! Today is **`r format(Sys.time(), "%-d %B %Y")`** and this is where I live.
