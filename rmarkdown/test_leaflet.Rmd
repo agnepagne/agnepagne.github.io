@@ -1,0 +1,18 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Testing the leaflet library
+
+
+```{r echo=FALSE, eval=TRUE}
+library(leaflet)
+karta <- leaflet() %>% addTiles()
+karta
+```
+
