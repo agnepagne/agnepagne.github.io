@@ -1,0 +1,36 @@
+---
+title: "Week 3 plotly"
+author: "Agne Larsson"
+date: "September 10, 2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+##
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+library(plotly)
+length <- rnorm(500, 175, 10)
+bmi <- rnorm(500, 28, 5)
+weight = bmi * (length/100)**2
+
+x <- list(title = "Length")
+y <- list(title = "Weight")
+lbl <- paste('L = ', round(length, 0),
+             ', W = ', round(weight, 1),
+             ', BMI = ', round(bmi, 1),
+             sep = "")
+cols <- c("darkgreen", "green", "yellow", "red", "darkred")
+
+plot_ly(x = length,  y = weight,
+        type = "scatter",
+        mode = "markers",
+        color = bmi,
+        colors = cols,
+        text = lbl
+        ) %>%
+        layout(xaxis = x, yaxis = y, title = 'BMI')
+```
