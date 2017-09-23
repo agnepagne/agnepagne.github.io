@@ -1,0 +1,64 @@
+---
+title: "Silly game suite<br>(DDP Assignment Week 4)"
+author: "Agne Larsson"
+date: "September 23, 2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## R U Bored?
+
+- Waiting for results from a complex computing algo? (1h)
+- Taking part in an uninteresting meeting? (2h)
+- Was your flight delayed for hours? (3h)
+
+```{r, echo = TRUE}
+algo <- 1; meeting <- 2; airport <- 3
+(hours_to_kill <- sum(algo, meeting, airport))
+```
+**Need something _(mildly)_ entertaining to do in the meantime?**
+
+What you need is...
+
+(well, go to the next slide already!)
+
+## Agnepagne's silly game suite
+
+```{r, echo = FALSE}
+par(mfrow=c(1,2))
+x <- runif(50, 0, 100)
+y <- x - rnorm(50, 0, 50)
+plot(x, y, axes = F, main = "Correctelate")
+m <- matrix(as.numeric(rbinom(20*20, 1, .3)), 20, 20)
+image(m, col = c("white", "black"), axes = F, main = "Sharea")
+```
+<center>http://agnepagne.shinyapps.io/ddp_assignment_week4</center>
+
+## Correctelate
+
+In this game, you see a plot and have to guess the correlation between x and y. Entertaining and educating. Sort of.
+
+```{r, echo = FALSE}
+par(mfrow=c(1,2))
+x <- runif(50, 0, 100)
+y <- - x + rnorm(50, 0, 50)
+plot(x, y, axes = F)
+x <- runif(50, 0, 100)
+y <- x + rnorm(50, 0, 10)
+plot(x, y, axes = F)
+```
+
+## Sharea
+
+In this game, you have to guess what proportion of the area is black. Surprisingly fun. Surprisingly useless.
+
+```{r, echo = FALSE}
+par(mfrow=c(1,2))
+m1 <- matrix(as.numeric(rbinom(20*50, 1, .1)), 20, 50)
+m2 <- matrix(as.numeric(rbinom(100*15, 1, .8)), 100, 15)
+image(m1, col = c("white", "black"), axes = F)
+image(m2, col = c("white", "black"), axes = F)
+```
