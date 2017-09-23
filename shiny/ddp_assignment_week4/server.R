@@ -2,6 +2,11 @@ library(shiny)
 
 shinyServer(function(input, output) {
 
+  # Display message depending on how close the guess was
+  howclose <- c("great!!", "good", "OK", "pretty bad", "very bad", "awful!")
+  mean_obs <- NULL
+  cor_obs <- NULL
+  
   # Sharea "Go" button pressed, randomize new image
   observeEvent(
     input$sharea_go,
@@ -12,13 +17,32 @@ shinyServer(function(input, output) {
       m <- matrix(as.numeric(rbinom(cols*rows, 1, p)), cols, rows)
       output$sharea_plot <- renderPlot({
         image(m, col = c("white", "black"), axes = F)
+        box()
       })
-      # To fix - user will have to guess share and then compare to result
-      output$sharea_res <- renderText( mean(m) )
+      mean_obs <<- round(mean(m), 2)
     }
   )
-
-  # Correlctelate "Go" button pressed, randomize new plot
+  
+  # Sharea "Guess" button pressed, present result
+  observeEvent(
+    input$sharea_guess,
+    {
+      if( is.null(mean_obs)||is.null(input$sharea_user) ){
+        return(NULL)
+      }
+      suser <- round(input$sharea_user, 2)
+      s_res <- paste("Your guess was:",
+                     suser,
+                     "- Correct answer: ",
+                     mean_obs,
+                     "That was...",
+                     howclose[1 + min(5, round(10*abs(mean_obs - suser)))]
+      )
+      output$sharea_res <- renderText( s_res )
+    }
+  )
+  
+  # Correctelate "Go" button pressed, randomize new plot
   observeEvent(
     input$cor_go,
     {
@@ -32,7 +56,26 @@ shinyServer(function(input, output) {
       y <- b*x + rnorm(n, 0, s)
 
       output$cor_plot <- renderPlot({plot(x, y, axes = F)})
-      output$cor_res <- renderText( cor(x, y) )
+      cor_obs <<- round(cor(x, y), 2)
+    }
+  )
+
+  # Correlate "Guess" button pressed, present result
+  observeEvent(
+    input$cor_guess,
+    {
+      if( is.null(cor_obs)||is.null(input$cor_user) ){
+        return(NULL)
+      }
+      cuser <- round(input$cor_user, 2)
+      c_res <- paste("Your guess was:",
+                     cuser,
+                     "- Correct answer: ",
+                     cor_obs,
+                     "That was...",
+                     howclose[1 + min(5, round(10*abs(cor_obs - cuser)))]
+      )
+      output$cor_res <- renderText( c_res )
     }
   )
 })
