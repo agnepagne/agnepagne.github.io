@@ -7,7 +7,7 @@ shinyServer(function(input, output) {
   mean_obs <- NULL
   cor_obs <- NULL
   
-  # Sharea "Go" button pressed, randomize new image
+  # Sharea "Go" button pressed, randomize new image and reset result
   observeEvent(
     input$sharea_go,
     {
@@ -19,6 +19,7 @@ shinyServer(function(input, output) {
         image(m, col = c("white", "black"), axes = F)
         box()
       })
+      output$sharea_res <- renderText( "" )
       mean_obs <<- round(mean(m), 2)
     }
   )
@@ -27,7 +28,7 @@ shinyServer(function(input, output) {
   observeEvent(
     input$sharea_guess,
     {
-      if( is.null(mean_obs)||is.null(input$sharea_user) ){
+      if( is.null(mean_obs) || is.na(input$sharea_user) || input$sharea_user > 1 || input$sharea_user < 0 ){
         return(NULL)
       }
       suser <- round(input$sharea_user, 2)
@@ -42,7 +43,7 @@ shinyServer(function(input, output) {
     }
   )
   
-  # Correctelate "Go" button pressed, randomize new plot
+  # Correctelate "Go" button pressed, randomize new plot and reset result
   observeEvent(
     input$cor_go,
     {
@@ -56,6 +57,7 @@ shinyServer(function(input, output) {
       y <- b*x + rnorm(n, 0, s)
 
       output$cor_plot <- renderPlot({plot(x, y, axes = F)})
+      output$cor_res <- renderText( "" )
       cor_obs <<- round(cor(x, y), 2)
     }
   )
@@ -64,7 +66,7 @@ shinyServer(function(input, output) {
   observeEvent(
     input$cor_guess,
     {
-      if( is.null(cor_obs)||is.null(input$cor_user) ){
+      if( is.null(cor_obs) || is.na(input$cor_user) || abs(input$cor_user) > 1){
         return(NULL)
       }
       cuser <- round(input$cor_user, 2)
